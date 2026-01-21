@@ -121,12 +121,7 @@ Transaction costs by asset:
 
 What appears as "mispricing" in commodities often reflects high convenience yield during supply shortages, storage constraints, or location/quality differences.
 
-## Installation and Usage
-
-Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+## Usage
 
 Run sample demonstration:
 ```bash
@@ -150,33 +145,6 @@ Features:
 - No-arbitrage bounds visualization
 - Cost-of-carry breakdown
 - CSV export
-
-## Code Example
-
-```python
-from futures_pricer import FairBasisIndicator, AssetParameters, AssetType
-
-# Initialize
-indicator = FairBasisIndicator()
-
-# Natural Gas parameters
-params = AssetParameters(
-    spot_price=2.50,
-    futures_price=2.65,
-    time_to_expiry=0.25,
-    risk_free_rate=0.05,
-    storage_cost_rate=0.06,
-    convenience_yield=0.02,
-    spot_transaction_cost=0.002,
-    futures_transaction_cost=0.001,
-    asset_name="Natural Gas",
-    asset_type=AssetType.COMMODITY
-)
-
-# Calculate and display
-result = indicator.calculate(params)
-indicator.print_summary(result)
-```
 
 ## Validation
 
