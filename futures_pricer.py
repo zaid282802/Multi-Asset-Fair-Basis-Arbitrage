@@ -311,9 +311,7 @@ class FairBasisIndicator:
         return result
 
     def print_summary(self, result):
-        print(f"\n{'='*70}")
         print(f"FAIR BASIS ANALYSIS: {result.asset_name}")
-        print(f"{'='*70}")
 
         print(f"\nMarket Data:")
         print(f"  Spot Price:           ${result.spot_price:>12,.4f}")
@@ -351,8 +349,6 @@ class FairBasisIndicator:
 
         if result.asset_type == AssetType.COMMODITY:
             print(f"\nImplied Convenience Yield: {result.implied_convenience_yield*100:.2f}%")
-
-        print(f"{'='*70}\n")
 
     def clear_history(self):
         self.history = []

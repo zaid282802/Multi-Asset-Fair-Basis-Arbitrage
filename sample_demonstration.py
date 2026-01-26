@@ -7,15 +7,12 @@ from futures_pricer import (
 )
 
 def demonstrate_natural_gas():
-    print("\n" + "="*70)
     print("NATURAL GAS ANALYSIS")
-    print("="*70)
 
     indicator = FairBasisIndicator()
 
     # Contango scenario
     print("\nScenario 1: Contango (Ample Supply)")
-    print("-" * 50)
 
     params1 = AssetParameters(
         spot_price=2.50,
@@ -54,9 +51,7 @@ def demonstrate_natural_gas():
     indicator.print_summary(result2)
 
 def demonstrate_sp500():
-    print("\n" + "="*70)
     print("S&P 500 FUTURES ANALYSIS")
-    print("="*70)
 
     indicator = FairBasisIndicator()
 
@@ -76,9 +71,7 @@ def demonstrate_sp500():
     indicator.print_summary(result)
 
 def demonstrate_currency():
-    print("\n" + "="*70)
     print("EUR/USD FORWARD ANALYSIS")
-    print("="*70)
 
     indicator = FairBasisIndicator()
 
@@ -98,17 +91,10 @@ def demonstrate_currency():
     indicator.print_summary(result)
 
 def main():
-    print("\n" + "="*70)
     print("FAIR BASIS INDICATOR - DEMONSTRATION")
-    print("="*70)
-
     demonstrate_natural_gas()
     demonstrate_sp500()
     demonstrate_currency()
-
-    print("\n" + "="*70)
-    print("DEMONSTRATION COMPLETE")
-    print("="*70)
 
 if __name__ == "__main__":
     main()
