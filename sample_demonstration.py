@@ -1,6 +1,9 @@
-import numpy as np  
+# Sample Demonstration - Basic usage examples
+# Shows how to calculate fair value for 3 asset types
+
+import numpy as np
 import pandas as pd
-from futures_pricer import (
+from src.futures_pricer import (
     FairBasisIndicator,
     AssetParameters,
     AssetType

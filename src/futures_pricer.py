@@ -1,3 +1,7 @@
+# Fair Basis Arbitrage - Core Pricing Engine
+# Calculates futures fair value using cost-of-carry model
+# Supports commodities, equities, currencies
+
 import numpy as np
 import pandas as pd
 from datetime import datetime
