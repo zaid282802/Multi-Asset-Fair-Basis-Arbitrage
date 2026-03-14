@@ -322,3 +322,4 @@ Annigeri, Z. (2026). Fair Basis Arbitrage Indicator: Multi-Asset Derivatives Pri
 and Arbitrage Signal Generation. Master of Quantitative Finance Program,
 Rutgers Business School.
 ```
+
