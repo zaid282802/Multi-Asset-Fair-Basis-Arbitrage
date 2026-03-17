@@ -1,5 +1,7 @@
 # Fair Basis Arbitrage Indicator
 
+**November 2025 -- December 2025** | Zaid Annigeri | Master of Quantitative Finance, Rutgers Business School
+
 > Multi-asset derivatives pricing system demonstrating why equity/currency arbitrage works while commodity arbitrage fails, validated against Bloomberg, CME, and Refinitiv professional tools.
 
 ## Project Overview
