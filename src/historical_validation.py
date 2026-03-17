@@ -1,12 +1,14 @@
 # Historical Case Study Validation
-# Validates fair value model using 3 real market examples from 2022-2023
+# Illustrates fair value model behavior using 3 examples from 2022-2023
 #
-# DATA SOURCES (for recruiter questions):
-# - S&P 500 (Jan 2023): Yahoo Finance historical data, Bloomberg Terminal FVOL screen
-# - Natural Gas (Mar 2022): EIA (Energy Information Administration), CME Group data
-# - EUR/USD (Oct 2023): FRED (Federal Reserve Economic Data), ECB policy rates
+# DATA NOTE:
+# Spot prices and interest rates are hardcoded values sourced from public data
+# (Yahoo Finance, FRED, EIA, ECB). However, the futures prices in Case Study 1
+# (S&P 500) and Case Study 3 (EUR/USD) are *constructed* by adding a fixed
+# deviation to the model's calculated fair value -- they are not actual observed
+# futures prices. This means these case studies demonstrate how the model works,
+# not that it was validated against real market trades.
 #
-# All dates, prices, and rates are from actual historical market data.
 # Calculations use the same cost-of-carry model as futures_pricer.py.
 
 import numpy as np
@@ -24,7 +26,7 @@ def case_study_sp500_arbitrage():
     spot = 3972.61  # SPX close (Yahoo Finance)
     time_to_expiry = 67 / 365  # March 2023 futures
 
-    # Market conditions (FRED, Bloomberg)
+    # Market conditions (FRED)
     risk_free_rate = 0.0475  # 3-month SOFR: 4.75%
     dividend_yield = 0.0165  # SPX dividend yield: 1.65%
 
@@ -32,8 +34,8 @@ def case_study_sp500_arbitrage():
     indicator = FairBasisIndicator()
     fair_futures_calc = spot * np.exp((risk_free_rate - dividend_yield) * time_to_expiry)
 
-    # Market futures (CME ES contract)
-    actual_futures = fair_futures_calc + 8.50  # +$8.50 premium (mispricing)
+    # Constructed futures price: fair value + $8.50 deviation (illustrative)
+    actual_futures = fair_futures_calc + 8.50
 
     # Create parameters
     params = AssetParameters(
@@ -82,7 +84,7 @@ def case_study_natural_gas_ukraine():
     risk_free_rate = 0.025  # Pre-hiking cycle: 2.5%
     storage_cost = 0.06  # Annual storage: 6.0%
 
-    # Market futures (CME NG contract)
+    # Futures price (hardcoded from historical records)
     actual_futures = 4.25  # Backwardation: spot > futures
 
     # Calculate implied convenience yield
@@ -189,10 +191,12 @@ def main():
     print("HISTORICAL CASE STUDY VALIDATION")
     print("Fair Basis Arbitrage Model - Real Market Examples (2022-2023)")
     print("="*70)
-    print("\nData Sources:")
-    print("  - S&P 500: Yahoo Finance, Bloomberg Terminal")
-    print("  - Natural Gas: EIA, CME Group")
+    print("\nData Sources (spot prices and rates):")
+    print("  - S&P 500: Yahoo Finance, FRED")
+    print("  - Natural Gas: EIA")
     print("  - EUR/USD: FRED, ECB")
+    print("\nNote: Futures prices for S&P 500 and EUR/USD are constructed")
+    print("(fair value + fixed deviation) to illustrate model behavior.")
     print("="*70 + "\n")
 
     # Run all 3 case studies

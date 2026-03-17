@@ -2,20 +2,19 @@
 
 **November 2025 -- December 2025** | Zaid Annigeri | Master of Quantitative Finance, Rutgers Business School
 
-> Multi-asset derivatives pricing system demonstrating why equity/currency arbitrage works while commodity arbitrage fails, validated against Bloomberg, CME, and Refinitiv professional tools.
+> Multi-asset derivatives pricing system that analyzes why equity/currency arbitrage works while commodity arbitrage fails.
 
 ## Project Overview
 
-This project implements a comprehensive cost-of-carry model to calculate theoretical fair values for futures contracts across five asset classes. Through systematic analysis of 7,494 historical observations (2015-2025), we demonstrate:
+This project implements a cost-of-carry model to calculate theoretical fair values for futures contracts across five asset classes. Analysis of simulated signal data across asset classes shows:
 
 - **Financial assets (equities, currencies)**: 68-71% arbitrage win rate, Sharpe ratios 1.8-2.3
 - **Commodities (natural gas, gold)**: Only 3% of signals exploitable, negative Sharpe ratios
 
 ### Key Findings
 
-- **3 Real Historical Case Studies**: S&P 500 Jan 2023 (+1.8 bps profit), Natural Gas Mar 2022 (58% conv. yield, FAILED), EUR/USD Oct 2023 (+1.8 bps profit)
-- **Professional Tool Validation**: <0.01% error vs Bloomberg FVOL, 1.8% vs CME DataMine
-- **Signal Performance**: 170 S&P 500 signals with 70.6% win rate and +90.7 bps cumulative profit
+- **3 Illustrative Case Studies**: S&P 500 Jan 2023 (+1.8 bps profit), Natural Gas Mar 2022 (58% conv. yield, FAILED), EUR/USD Oct 2023 (+1.8 bps profit). These use hardcoded market parameters (spot prices, rates) with constructed futures prices to illustrate model behavior -- not live-fetched data.
+- **Signal Performance**: 170 S&P 500 signals with 70.6% win rate and +90.7 bps cumulative profit (simulated)
 
 ---
 
@@ -30,7 +29,7 @@ numpy, pandas, scipy, matplotlib, seaborn, yfinance
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/fair-basis-arbitrage.git
+git clone https://github.com/Zaid282802/fair-basis-arbitrage.git
 cd fair-basis-arbitrage
 
 # Install dependencies
@@ -42,7 +41,7 @@ pip install numpy pandas scipy matplotlib seaborn yfinance requests
 # Run basic usage demonstration
 python sample_demonstration.py
 
-# Validate model with 3 real historical case studies
+# Run illustrative case studies with hardcoded market parameters
 python src/historical_validation.py
 
 # Generate 7 portfolio visualizations (300 DPI)
@@ -51,22 +50,22 @@ python src/create_visualizations.py
 
 **Output**:
 - `sample_demonstration.py`: Shows natural gas, S&P 500, and EUR/USD pricing examples
-- `historical_validation.py`: Validates model with real market case studies (2022-2023)
-- `create_visualizations.py`: Generates 7 publication-quality charts saved to `visualizations/`
+- `historical_validation.py`: Runs case studies using hardcoded market parameters (2022-2023)
+- `create_visualizations.py`: Generates 7 charts saved to `visualizations/`
 
-**Data**: Project uses Yahoo Finance API and FRED (Federal Reserve) for market data
+**Data**: Visualizations use synthetic data. Case studies use hardcoded spot prices and rates from public sources (Yahoo Finance, FRED, EIA) with constructed futures prices to demonstrate model mechanics.
 
 ### Project Structure
 ```
 fair-basis-arbitrage/
 ├── src/
 │   ├── futures_pricer.py           # Core pricing engine (382 lines)
-│   ├── historical_validation.py    # Model validation with 3 real case studies (224 lines)
+│   ├── historical_validation.py    # Illustrative case studies (224 lines)
 │   └── create_visualizations.py    # Generate 7 portfolio charts (568 lines)
 ├── sample_demonstration.py         # Basic usage examples (103 lines)
 ├── visualizations/                 # Generated charts (7 PNG files, 300 DPI)
 ├── report/
-│   └── Fair_Basis_Arbitrage_Report.tex  # Comprehensive LaTeX report (1,200+ lines)
+│   └── Fair_Basis_Arbitrage_Report.tex  # LaTeX report (1,200+ lines)
 └── README.md                       # This file
 ```
 
@@ -74,14 +73,14 @@ fair-basis-arbitrage/
 
 ## Portfolio Visualizations
 
-**7 publication-quality charts** demonstrating strategy performance:
+**7 charts** demonstrating strategy performance (generated from synthetic data):
 
 | Chart | Description | Key Insight |
 |-------|-------------|-------------|
 | **1. Basis Deviation Time Series** | 60-day actual vs fair value | Visual proof of futures deviating from fair value |
 | **2. No-Arbitrage Bounds** | Multi-asset snapshot | Shows which assets have exploitable arbitrage |
-| **3. Sensitivity Heatmap** | Interest rate × dividend yield | 2D parameter sensitivity analysis |
-| **4. Convenience Yield Term Structure** | Natural gas maturity curve | Proof of why commodity arbitrage fails |
+| **3. Sensitivity Heatmap** | Interest rate x dividend yield | 2D parameter sensitivity analysis |
+| **4. Convenience Yield Term Structure** | Natural gas maturity curve | Illustrates why commodity arbitrage fails |
 | **5. Transaction Cost Breakdown** | Feasibility by asset class | Currencies/equities arbitrageable, commodities not |
 | **6. Signal Frequency Analysis** | Performance metrics table | **68-71% win rate for financial vs 12% for commodities** |
 | **7. P&L Distribution** | S&P 500 histogram | 170 signals, 70.6% win rate, +90.7 bps cumulative |
@@ -90,9 +89,9 @@ fair-basis-arbitrage/
 
 ---
 
-## Real Historical Case Studies
+## Illustrative Case Studies
 
-**3 real market examples** from 2022-2023:
+**3 examples** using hardcoded market parameters from 2022-2023. Spot prices and rates are sourced from public data (Yahoo Finance, FRED, EIA). Futures prices are constructed (fair value + a fixed deviation) to illustrate how the model detects and evaluates mispricings.
 
 ### Case Study 1: S&P 500 Cash-and-Carry (January 17, 2023)
 - **Market Context**: Fed terminal rate regime (5% Fed Funds), index rebalancing flows
@@ -115,13 +114,11 @@ fair-basis-arbitrage/
 - **Outcome**: +1.8 bps profit, convergence in 24 hours
 - **Why It Worked**: Pure financial, observable rates, ultra-low costs (1.5 pips)
 
-**All case studies** integrated into LaTeX report Section 5 with professional tables.
-
 ---
 
 ## Signal Performance Analysis
 
-Analyzed **12 months of historical data (2023)** across 6 asset classes:
+Analyzed **12 months of simulated signal data (2023)** across 6 asset classes:
 
 | Asset Class | Signals/Month | Win Rate | Avg Profit (bps) | Sharpe Ratio | Feasibility |
 |-------------|---------------|----------|------------------|--------------|-------------|
@@ -135,24 +132,24 @@ Analyzed **12 months of historical data (2023)** across 6 asset classes:
 **Key Findings**:
 - **Financial Assets**: 68-71% win rates, positive Sharpe ratios (1.6-2.3), rapid convergence
 - **Commodities**: 12-45% win rates, negative Sharpe, deviations persist for months
-- **Empirical Proof**: Natural gas generates most signals (8.1/month) but worst performance (12% win rate)
+- Natural gas generates most signals (8.1/month) but worst performance (12% win rate)
 
 ---
 
 ## Supported Asset Classes
 
 **Commodities** (natural gas, oil, gold)
-- Formula: F = S × e^((r + u - y)T)
+- Formula: F = S x e^((r + u - y)T)
 - Includes convenience yield estimation (Newton-Raphson solver)
 - **Result**: Arbitrage infeasible due to unobservable convenience yield
 
 **Equity Indices** (S&P 500, NASDAQ)
-- Formula: F = S × e^((r - q)T)
+- Formula: F = S x e^((r - q)T)
 - Feasible arbitrage via ETFs (SPY, QQQ)
 - **Result**: 68-71% win rate, 2.1-2.3 Sharpe ratio
 
 **Currencies** (EUR/USD, major pairs)
-- Formula: F = S × e^((r_d - r_f)T)
+- Formula: F = S x e^((r_d - r_f)T)
 - Covered interest parity (CIP)
 - **Result**: 71% win rate, 1.8 Sharpe ratio
 
@@ -166,7 +163,7 @@ Analyzed **12 months of historical data (2023)** across 6 asset classes:
 The fundamental relationship:
 
 ```
-F* = S × e^(cost_of_carry × T)
+F* = S x e^(cost_of_carry x T)
 ```
 
 Where cost of carry depends on asset type:
@@ -211,12 +208,12 @@ Variables:
    - `CurrencyCalculator`: Covered interest parity
 
 2. **`historical_validation.py` (224 lines)**:
-   - 3 real case studies with actual market data
-   - Professional tool validation (Bloomberg, CME, Refinitiv)
+   - 3 illustrative case studies with hardcoded market parameters
+   - Spot prices/rates from public sources; futures prices constructed to demonstrate model
 
 3. **`create_visualizations.py` (568 lines)**:
    - 7 charts at 300 DPI
-   - Professional styling (seaborn)
+   - Styled with seaborn
 
 ---
 
@@ -227,14 +224,14 @@ Variables:
 - Observable inputs (SOFR, dividend yields, central bank rates)
 - High liquidity, low transaction costs
 - Cash settlement
-→ **Arbitrage is feasible** (68-71% win rate empirically)
+- **Arbitrage is feasible** (68-71% win rate in simulated analysis)
 
 **Physical commodities:**
 - Cannot short physical inventory
 - **Unobservable convenience yield** (must be reverse-engineered)
 - Delivery logistics (location, quality, timing)
 - Physical settlement required
-→ **Arbitrage is nearly impossible** (12% win rate, 97% false positives)
+- **Arbitrage is nearly impossible** (12% win rate, 97% false positives in simulated analysis)
 
 **Key Insight**: What appears as "mispricing" in commodities often reflects rational scarcity pricing, not arbitrage opportunity.
 
@@ -278,7 +275,7 @@ Shows:
 
 ## Documentation
 
-### Comprehensive LaTeX Report
+### LaTeX Report
 
 A full academic report (`report/Fair_Basis_Arbitrage_Report.tex`, 1,200+ lines) covering:
 
@@ -286,22 +283,20 @@ A full academic report (`report/Fair_Basis_Arbitrage_Report.tex`, 1,200+ lines) 
 - **Section 2**: Cost-of-carry framework and mathematical derivations
 - **Section 3**: Literature review (Geman 2005, Hull 2021)
 - **Section 4**: Methodology and implementation
-- **Section 5**: Validation and Results
-  - 3 real historical case studies
+- **Section 5**: Results
+  - 3 illustrative case studies
   - Signal performance analysis
-  - Professional tool validation (Bloomberg, CME, Refinitiv)
-- **Section 6**: Why Commodity Arbitrage Fails (empirical evidence)
+- **Section 6**: Why Commodity Arbitrage Fails
 - **Section 7**: Conclusion and applications
 
-**Compile with LaTeX** for professional PDF output suitable for portfolio/presentations.
+**Compile with LaTeX** for PDF output.
 
 ---
 
-### Key Metrics to Highlight
-- **68-71%** - Financial asset arbitrage win rate
+### Key Metrics
+- **68-71%** - Financial asset arbitrage win rate (simulated)
 - **3%** - Commodity signal success rate (97% false positives)
 - **2.3 days** - S&P 500 mean reversion time (vs 47 days for natural gas)
-- **<0.01%** - Model error vs Bloomberg/Refinitiv professional tools
 
 ---
 
@@ -324,4 +319,3 @@ Annigeri, Z. (2026). Fair Basis Arbitrage Indicator: Multi-Asset Derivatives Pri
 and Arbitrage Signal Generation. Master of Quantitative Finance Program,
 Rutgers Business School.
 ```
-
